@@ -1,36 +1,7 @@
-import NextAuth, { type DefaultSession } from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import API from "./app/api/api.services";
 import { object, string } from "zod";
-import { JWT } from "next-auth/jwt";
-import { redirect } from "next/navigation";
-
-declare module "next-auth/jwt" {
-  interface JWT {
-    uid?: string;
-    name: String;
-    token: string;
-  }
-}
-
-declare module "next-auth" {
-  interface User {
-    uid: string;
-    user: {
-      email: string;
-      password: string;
-    } & DefaultSession["user"];
-    token: string;
-  }
-
-  interface Session {
-    user: {
-      uid: string;
-      name: string;
-      token: string;
-    };
-  }
-}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -79,6 +50,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return {
             id: user.uid,
             name: user.name,
+            role: user.role,
             token: user.token,
           } as any;
         } catch (error) {
@@ -98,9 +70,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         (token.uid = user.id), (token.name = user.name as string);
         token.token = user.token;
+        token.role = user.role;
       }
-      console.log("HOLA TOKEN");
-      console.log(token);
       return token;
     },
     async session({ session, token }) {
@@ -108,9 +79,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         uid: token.uid as string,
         name: token.name as string,
         token: token.token as string,
+        role: token.role,
       } as any;
-      console.log("Hola Sesión");
-      console.log(session);
 
       return session;
     },

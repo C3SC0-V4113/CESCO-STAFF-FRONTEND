@@ -3,6 +3,7 @@ import axiosInstance from "../axios.config";
 interface User {
   ok: boolean;
   uid: string;
+  role: string;
   name: string;
   token: string;
 }
