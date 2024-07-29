@@ -14,7 +14,9 @@ export default async function DashboardLayout({
       <div className="flex mt-12 lg:mt-0 w-full justify-center">
         <SideNavbar session={session} />
 
-        <div className="p-2 py-8 max-w-prose mx-auto">{children}</div>
+        <div className="p-2 py-8 max-w-prose mx-auto overflow-x-auto">
+          {children}
+        </div>
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import axiosInstance from "../axios.config";
-import { Client } from "@/interfaces/events";
+import { Client } from "@/interfaces/client";
 
 interface ResponseClients {
   ok: boolean;
