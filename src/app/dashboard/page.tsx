@@ -1,9 +1,14 @@
+import { auth } from "@/auth";
 import { NextPage } from "next";
 
 interface Props {}
 
 const Page: NextPage<Props> = async ({}) => {
-  return <div>Welcome to Dashboard</div>;
+  const session = await auth();
+
+  if (!session) return null;
+
+  return <div>Welcome to Dashboard {session.user.name}</div>;
 };
 
 export default Page;
