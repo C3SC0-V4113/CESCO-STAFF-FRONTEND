@@ -10,19 +10,42 @@ interface Props {
   session: Session;
 }
 
-const navItems = [
-  {
-    label: "Inicio",
-    href: "/dashboard",
-  },
-  {
-    label: "Capacitaciones",
-    href: "/capacitations",
-  },
-];
-
 export const SideNavbar = ({ session }: Props) => {
   const matches = useMediaQuery("(min-width: 1024px)");
+
+  const navUserItems = [
+    {
+      label: "Inicio",
+      href: "/dashboard",
+    },
+    {
+      label: "Clientes",
+      href: "/dashboard/clients",
+    },
+    {
+      label: "Eventos",
+      href: "/dashboard/events",
+    },
+  ];
+
+  const navAdminItems = [
+    {
+      label: "Inicio",
+      href: "/dashboard",
+    },
+    {
+      label: "Clientes",
+      href: "/dashboard/clients",
+    },
+    {
+      label: "Usuarios",
+      href: "/dashboard/users",
+    },
+    {
+      label: "Eventos",
+      href: "/dashboard/events",
+    },
+  ];
 
   return (
     <header
@@ -34,9 +57,17 @@ export const SideNavbar = ({ session }: Props) => {
       )}
     >
       {matches ? (
-        <DesktopNav navItems={navItems} />
+        <DesktopNav
+          navItems={
+            session.user.role === "admin" ? navAdminItems : navUserItems
+          }
+        />
       ) : (
-        <MobileNav navItems={navItems} />
+        <MobileNav
+          navItems={
+            session.user.role === "admin" ? navAdminItems : navUserItems
+          }
+        />
       )}
     </header>
   );
