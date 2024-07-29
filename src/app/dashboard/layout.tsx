@@ -1,24 +1,20 @@
-import { signOut } from "@/auth";
+import { auth, signOut } from "@/auth";
+import { SideNavbar } from "@/components/ui/side-navbar";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+  if (!session) return null;
+
   return (
-    <div>
-      <div>
-        <h1>Hello Root Layout Dashboard</h1>
-        <form
-          action={async () => {
-            "use server";
-            await signOut();
-          }}
-        >
-          <button type="submit">Sign Out</button>
-        </form>
+    <>
+      <div className="flex mt-12 lg:mt-0">
+        <SideNavbar session={session} />
+        <div className="p-2">{children}</div>
       </div>
-      {children}
-    </div>
+    </>
   );
 }
