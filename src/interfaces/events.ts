@@ -6,7 +6,7 @@ export interface CalendarEvents {
   clients: Client[];
   startDateTime: Date;
   endDateTime: Date;
-  status: string;
+  status: "completed" | "pending" | "canceled";
   __v: number;
 }
 

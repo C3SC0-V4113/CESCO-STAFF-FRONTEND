@@ -17,6 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import moment from "moment";
 import Link from "next/link";
+import { StatusParser } from "@/components/ui/status-parser";
+import { DeleteDialogEvent } from "@/components/ui/delete-dialog-event";
 
 interface CalendarEventFormatted {
   title: string;
@@ -69,7 +71,8 @@ const CalendarEventsComponent = ({ events }: Props) => {
             <DialogTitle>{selectedEvent?.title}</DialogTitle>
             <DialogDescription asChild>
               <div className="grid grid-cols-2 gap-6">
-                <p className="col-span-full">{selectedEvent?.description}</p>
+                <p>{selectedEvent?.description}</p>
+                <StatusParser status={selectedEvent?.status!} />
                 <div className="flex flex-col gap-2">
                   <p>Fecha de Inicio</p>
                   <p>{moment(selectedEvent?.startDateTime).format("ll")}</p>
@@ -100,7 +103,13 @@ const CalendarEventsComponent = ({ events }: Props) => {
               <Link href={`events/${selectedEvent?._id}/edit`}>
                 <Button>Editar</Button>
               </Link>
-              <Button variant={"destructive"}>Eliminar</Button>
+              <DeleteDialogEvent
+                eventId={selectedEvent?._id!}
+                cta={"Eliminar Evento"}
+                title={"¿Estás seguro que deseas eliminar el evento?"}
+                desc={"Está acción no se puede reponer"}
+                setShowModal={setShowModal}
+              />
             </div>
           </DialogFooter>
         </DialogContent>

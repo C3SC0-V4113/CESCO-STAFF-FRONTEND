@@ -1,5 +1,3 @@
-"use client";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,13 +10,14 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./button";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
-import deleteUserAction from "@/actions/users/deleteUser.action";
+import deleteEventAction from "@/actions/events/deleteEvent.action";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  userId: string;
+  eventId: string;
   cta: string;
   title: string;
   desc: string;
@@ -31,21 +30,24 @@ interface Props {
     | "ghost"
     | null;
   buttonClassName?: string;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-export const DeleteDialogUser = ({
+export const DeleteDialogEvent = ({
   title,
   desc,
   cta,
-  userId,
+  eventId,
   buttonVariant = "destructive",
   buttonClassName,
+  setShowModal,
 }: Props) => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const router = useRouter();
   const onSubmit = async () => {
     setLoading(true);
-    const response = await deleteUserAction(userId);
+    const response = await deleteEventAction(eventId);
 
     if (response?.error) {
       /** Logica de error */
@@ -57,6 +59,9 @@ export const DeleteDialogUser = ({
 
       setLoading(false);
     }
+
+    setShowModal(false);
+    router.refresh();
   };
 
   return (

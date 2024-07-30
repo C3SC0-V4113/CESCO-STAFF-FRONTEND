@@ -1,11 +1,12 @@
 import { auth } from "@/auth";
 import axiosInstance from "../axios.config";
 
-const deleteClient = async (clientId: string) => {
+const deleteEvent = async (eventId: string) => {
   const session = await auth();
   /** DELETE to endpoint */
+
   return await axiosInstance
-    .delete(`/client/${clientId}`, {
+    .delete(`/event/${eventId}`, {
       headers: {
         "x-token": session?.user.token,
       },
@@ -18,4 +19,4 @@ const deleteClient = async (clientId: string) => {
     });
 };
 
-export default deleteClient;
+export default deleteEvent;
