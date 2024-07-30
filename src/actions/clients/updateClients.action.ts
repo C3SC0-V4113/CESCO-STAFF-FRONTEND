@@ -25,7 +25,7 @@ const updateClientAction = async ({ values, id }: Props) => {
 
   if (!response) {
     return {
-      error: "Unable to create client",
+      error: "Unable to update client",
     };
   }
   redirect(`/dashboard/clients/${id}`);

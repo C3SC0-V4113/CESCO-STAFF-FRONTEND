@@ -3,6 +3,7 @@ import deleteUser from "./delete-auth";
 import getUserById from "./get-user-by-id";
 import getUsers from "./get-users";
 import login from "./login";
+import updateUser from "./update-user";
 
 export const auth = {
   login,
@@ -10,4 +11,5 @@ export const auth = {
   createUser,
   getUserById,
   deleteUser,
+  updateUser,
 };
