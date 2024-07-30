@@ -28,7 +28,7 @@ const Page: NextPage<Props> = async ({}) => {
           content={countEvents! | 0}
           link={{
             label: "Ver Eventos Pendientes",
-            href: "/dashboard/activities",
+            href: "/dashboard/events",
           }}
         />
       </Suspense>
@@ -54,7 +54,7 @@ const Page: NextPage<Props> = async ({}) => {
           {pendingFiveEvents ? (
             pendingFiveEvents.map((event, key) => (
               <div
-                className="w-full p-4 grid grid-cols-2 gap-2 border rounded-sm"
+                className="w-full p-4 grid grid-cols-2 gap-2 border rounded-sm my-2"
                 key={key}
               >
                 <p className="my-auto text-left">{event.title}</p>
