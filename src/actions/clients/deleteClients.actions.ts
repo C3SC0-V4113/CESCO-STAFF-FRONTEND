@@ -3,7 +3,7 @@
 import API from "@/app/api/api.services";
 import { redirect } from "next/navigation";
 
-const deleteUserAction = async (id: string) => {
+const deleteClientAction = async (id: string) => {
   const ok = await API.client.deleteClient(id!);
 
   if (!ok) {
@@ -14,4 +14,4 @@ const deleteUserAction = async (id: string) => {
   redirect("/dashboard/clients");
 };
 
-export default deleteUserAction;
+export default deleteClientAction;

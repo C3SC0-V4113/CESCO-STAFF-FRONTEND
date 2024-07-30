@@ -12,24 +12,40 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./button";
-import deleteUserAction from "@/actions/deleteUser.actions";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
+import deleteClientAction from "@/actions/clients/deleteClients.actions";
 
 interface Props {
   clientId: string;
   cta: string;
   title: string;
   desc: string;
+  buttonVariant?:
+    | "link"
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | null;
+  buttonClassName?: string;
 }
 
-export const DeleteDialog = ({ title, desc, cta, clientId }: Props) => {
+export const DeleteDialog = ({
+  title,
+  desc,
+  cta,
+  clientId,
+  buttonVariant = "destructive",
+  buttonClassName,
+}: Props) => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const onSubmit = async () => {
     setLoading(true);
-    const response = await deleteUserAction(clientId);
+    const response = await deleteClientAction(clientId);
 
     if (response?.error) {
       /** Logica de error */
@@ -46,7 +62,9 @@ export const DeleteDialog = ({ title, desc, cta, clientId }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant={"destructive"}>{cta}</Button>
+        <Button className={buttonClassName} variant={buttonVariant}>
+          {cta}
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -56,12 +74,7 @@ export const DeleteDialog = ({ title, desc, cta, clientId }: Props) => {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button
-              className="w-full"
-              variant={"destructive"}
-              onClick={onSubmit}
-              disabled={loading}
-            >
+            <Button onClick={onSubmit} disabled={loading}>
               {loading && <Loader2 className="animate-spin mr-2" />}
               Continuar
             </Button>

@@ -50,7 +50,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex flex-col sm:flex-row-reverse gap-2 items-center py-4">
+      <div className="flex flex-col sm:flex-row-reverse justify-end gap-2 items-center py-4">
         {role === "admin" && (
           <Link className="w-full max-w-sm" href={"clients/create"}>
             <Button className="w-full">Crear Cliente</Button>

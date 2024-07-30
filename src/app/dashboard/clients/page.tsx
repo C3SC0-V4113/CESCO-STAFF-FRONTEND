@@ -3,8 +3,8 @@ import { auth } from "@/auth";
 import { NextPage } from "next";
 import { Client, columns } from "./columns";
 import { DataTable } from "./data-table";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Header } from "@/components/ui/header";
+import { columnsAdmin } from "./columnsAdmin";
 
 interface Props {}
 
@@ -22,7 +22,11 @@ const Clients: NextPage<Props> = async ({}) => {
   return (
     <div className="flex flex-col gap-4 w-full">
       <Header title="Clientes" desc="Manejo de Clientes" />
-      <DataTable columns={columns} data={data} role={session.user.role} />
+      <DataTable
+        columns={session.user.role === "admin" ? columnsAdmin : columns}
+        data={data}
+        role={session.user.role}
+      />
     </div>
   );
 };
