@@ -3,6 +3,7 @@ import createClients from "./create-clients";
 import deleteClient from "./delete-client";
 import getClientsById from "./get-client-by-id";
 import getClients from "./get-clients";
+import updateClient from "./update-client";
 
 export const client = {
   countClients,
@@ -10,4 +11,5 @@ export const client = {
   deleteClient,
   getClients,
   getClientsById,
+  updateClient,
 };
