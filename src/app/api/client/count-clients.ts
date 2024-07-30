@@ -8,17 +8,23 @@ interface ResponseCounter {
 
 const countClients = async () => {
   const session = await auth();
-  /** GET to endpoint */
+  /** POST to endpoint */
   return await axiosInstance
-    .get<ResponseCounter>("/client/total", {
-      headers: {
-        "x-token": session?.user.token,
-      },
-    })
+    .post<ResponseCounter>(
+      "/client/total",
+      {},
+      {
+        headers: {
+          "x-token": session?.user.token,
+        },
+      }
+    )
     .then((response) => {
+      console.log(response.data.count);
       return response.data.count;
     })
     .catch((error) => {
+      console.error(error);
       return null;
     });
 };
