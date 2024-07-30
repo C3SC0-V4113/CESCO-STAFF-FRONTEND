@@ -20,9 +20,9 @@ const Page: NextPage<Props> = async ({}) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <h1 className="text-2xl text-center font-bold col-span-full mb-8">
-        Welcome to Dashboard {session.user.name}
+        Bienvenido al panel {session.user.name}
       </h1>
-      <Suspense fallback={<p>Loading feed...</p>}>
+      <Suspense key={countEvents} fallback={<p>Loading feed...</p>}>
         <HomeCard
           title="Eventos Pendientes"
           content={countEvents! | 0}
@@ -32,7 +32,7 @@ const Page: NextPage<Props> = async ({}) => {
           }}
         />
       </Suspense>
-      <Suspense fallback={<p>Loading feed...</p>}>
+      <Suspense key={countClients} fallback={<p>Loading feed...</p>}>
         <HomeCard
           title="Clientes Totales"
           content={countClients! | 0}
