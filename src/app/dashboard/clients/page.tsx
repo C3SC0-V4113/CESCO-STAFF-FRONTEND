@@ -4,6 +4,7 @@ import { NextPage } from "next";
 import { Client, columns } from "./columns";
 import { DataTable } from "./data-table";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Header } from "@/components/ui/header";
 
 interface Props {}
 
@@ -19,11 +20,9 @@ const Clients: NextPage<Props> = async ({}) => {
 
   if (!session) return null;
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="text-2xl text-center font-bold col-span-full mb-8">
-        Clientes
-      </h1>
-      <DataTable columns={columns} data={data} />
+    <div className="flex flex-col gap-4 w-full">
+      <Header title="Clientes" desc="Manejo de Clientes" />
+      <DataTable columns={columns} data={data} role={session.user.role} />
     </div>
   );
 };

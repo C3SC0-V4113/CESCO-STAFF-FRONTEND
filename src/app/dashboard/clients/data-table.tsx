@@ -21,13 +21,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  role: string;
 }
 
 export function DataTable<TData, TValue>({
+  role,
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -47,7 +50,13 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex flex-col sm:flex-row-reverse gap-2 items-center py-4">
+        {role === "admin" && (
+          <Link className="w-full max-w-sm" href={"clients/create"}>
+            <Button className="w-full">Crear Cliente</Button>
+          </Link>
+        )}
+
         <Input
           placeholder="Buscar por nombre..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}

@@ -65,6 +65,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/",
   },
+  session: {
+    maxAge: 2 * 60 * 60,
+  },
+  jwt: {
+    maxAge: 2 * 60 * 60,
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -81,7 +87,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token: token.token as string,
         role: token.role,
       } as any;
-
       return session;
     },
 
